@@ -1,126 +1,71 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>서든어택 꿀팁</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.youtube.com/iframe_api"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>앱 아이콘 변환기</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-zinc-950 text-gray-100 font-['Noto_Sans_KR'] min-h-screen flex flex-col">
+<body>
+<div class="container">
+  <h1>🌙 앱 아이콘 변환기</h1>
+  <p class="subtitle">몽글 앱 아이콘을 스토어 규격에 맞게 변환합니다</p>
 
-    <!-- Header -->
-    <header class="bg-zinc-900 border-b border-red-900/50 sticky top-0 z-50 shadow-lg shadow-red-900/20">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-black text-white tracking-tighter cursor-pointer" onclick="showView('view-main')">
-                <span class="text-red-600">SA</span> 꿀팁
-            </h1>
-            <nav id="breadcrumbs" class="text-sm font-bold text-gray-400 hidden sm:block">
-                <!-- Breadcrumbs injected by JS -->
-            </nav>
+  <div class="spec-box">
+    <h3>📋 출력 설정</h3>
+    <div class="size-options">
+      <div class="preset-label">빠른 선택</div>
+      <div class="presets">
+        <button class="preset-btn active" onclick="setSize(512, this)">512×512</button>
+        <button class="preset-btn" onclick="setSize(1024, this)">1024×1024</button>
+        <button class="preset-btn" onclick="setSize(256, this)">256×256</button>
+        <button class="preset-btn" onclick="setSize(192, this)">192×192</button>
+        <button class="preset-btn" onclick="setSize(180, this)">180×180</button>
+        <button class="preset-btn" onclick="setSize(96, this)">96×96</button>
+      </div>
+      <div class="custom-size-row">
+        <span class="preset-label">직접 입력</span>
+        <div class="custom-inputs">
+          <input type="number" id="customW" placeholder="가로" min="16" max="4096" oninput="onCustomInput()">
+          <span class="x-label">×</span>
+          <input type="number" id="customH" placeholder="세로" min="16" max="4096" oninput="onCustomInput()">
+          <span class="px-label">px</span>
+          <button class="apply-btn" id="applyBtn" onclick="applyCustomSize()" disabled>적용</button>
         </div>
-    </header>
+      </div>
+      <div class="current-size-info">현재 출력 크기: <strong id="currentSizeLabel">512 × 512 px</strong></div>
+    </div>
+  </div>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
-        
-        <!-- View 1: Main Category Selection -->
-        <section id="view-main" class="view active h-full flex flex-col justify-center">
-            <div class="text-center mb-12">
-                <h2 class="text-5xl md:text-7xl font-black mb-4 tracking-tight">서든어택 <span class="text-red-600">마스터</span> 가이드</h2>
-                <p class="text-xl text-gray-400">원하는 카테고리를 선택하여 실력을 향상시키세요.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
-                <!-- Map Tips Card -->
-                <div onclick="showView('view-map-list')" class="group relative overflow-hidden rounded-2xl cursor-pointer bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all duration-300 transform hover:-translate-y-2 shadow-2xl">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent z-10"></div>
-                    <!-- Placeholder Background Image for Map -->
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" alt="맵 배경" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                    <div class="relative z-20 p-10 h-full flex flex-col justify-end min-h-[300px]">
-                        <h3 class="text-5xl font-black text-white mb-2">맵<span class="text-red-500">tip</span></h3>
-                        <p class="text-gray-300 text-lg">모든 맵의 위폭 지점, 월샷, 생존 자리 완벽 공략</p>
-                    </div>
-                </div>
+  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+    <div class="icon">🖼️</div>
+    <p>이미지를 여기에 드래그하거나 클릭하여 업로드</p>
+    <p style="font-size:12px; margin-top:4px;">PNG, JPEG, WEBP 지원</p>
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
 
-                <!-- Weapon Tips Card -->
-                <div onclick="showView('view-weapon-list')" class="group relative overflow-hidden rounded-2xl cursor-pointer bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all duration-300 transform hover:-translate-y-2 shadow-2xl">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent z-10"></div>
-                    <!-- Placeholder Background Image for Weapon -->
-                    <img src="https://images.unsplash.com/photo-1595590424283-b8f1784cb2c8?q=80&w=800&auto=format&fit=crop" alt="무기 배경" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                    <div class="relative z-20 p-10 h-full flex flex-col justify-end min-h-[300px]">
-                        <h3 class="text-5xl font-black text-white mb-2">무기<span class="text-red-500">tip</span></h3>
-                        <p class="text-gray-300 text-lg">AR, SR, 권총 등 총기별 스프레이 및 에임 꿀팁</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="info-bar" id="infoBar"></div>
 
-        <!-- View 2: Map List -->
-        <section id="view-map-list" class="view hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <button onclick="showView('view-main')" class="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-bold transition-colors">← 뒤로</button>
-                <h2 class="text-3xl font-black border-l-4 border-red-600 pl-4">맵 카테고리</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="map-grid">
-                <!-- Map Cards injected by JS -->
-            </div>
-        </section>
+  <div class="preview-area" id="previewArea">
+    <div class="preview-box">
+      <label>원본 이미지</label>
+      <img id="originalPreview" style="max-height:200px;">
+    </div>
+    <div class="preview-box">
+      <label id="resultLabel">변환 결과 (512×512, 투명 배경)</label>
+      <div class="checker">
+        <canvas id="resultCanvas" width="200" height="200"></canvas>
+      </div>
+    </div>
+  </div>
 
-        <!-- View 3: Map Detail -->
-        <section id="view-map-detail" class="view hidden">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="showView('view-map-list')" class="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-bold transition-colors">← 목록으로</button>
-            </div>
-            
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
-                <!-- Map Header Image -->
-                <div class="relative h-64 md:h-80 w-full">
-                    <img id="detail-map-img" src="" alt="Map Cover" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
-                    <h2 id="detail-map-title" class="absolute bottom-6 left-6 text-4xl md:text-5xl font-black text-white shadow-sm">맵 이름</h2>
-                </div>
-
-                <div class="p-6 md:p-10">
-                    <!-- Tabs -->
-                    <div class="flex flex-wrap gap-2 border-b border-zinc-800 pb-4 mb-8">
-                        <button class="tab-btn active bg-red-600 text-white px-6 py-2 rounded-full font-bold" data-tab="tab-grenade">💣 위폭 포인트</button>
-                        <button class="tab-btn bg-zinc-800 text-gray-300 hover:text-white hover:bg-zinc-700 px-6 py-2 rounded-full font-bold transition-colors" data-tab="tab-tips">💡 핵심 꿀팁</button>
-                    </div>
-
-                    <!-- Tab Contents -->
-                    <div id="tab-grenade" class="tab-content block space-y-12">
-                        <!-- Grenade spots injected by JS -->
-                    </div>
-
-                    <div id="tab-tips" class="tab-content hidden space-y-8">
-                        <!-- General tips injected by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- View 4: Weapon List (Placeholder for future) -->
-        <section id="view-weapon-list" class="view hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <button onclick="showView('view-main')" class="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-bold transition-colors">← 뒤로</button>
-                <h2 class="text-3xl font-black border-l-4 border-red-600 pl-4">무기 카테고리</h2>
-            </div>
-            <div class="bg-zinc-900 p-12 text-center rounded-2xl border border-zinc-800">
-                <div class="text-6xl mb-4">🔫</div>
-                <h3 class="text-2xl font-bold mb-2 text-white">무기 공략 준비 중</h3>
-                <p class="text-gray-400">현재 데이터 수집 및 정리 중입니다. 곧 업데이트 됩니다!</p>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-zinc-950 py-8 border-t border-zinc-900 text-center">
-        <p class="text-zinc-600 text-sm font-bold tracking-widest">SUDDEN ATTACK MASTER GUIDE</p>
-    </footer>
-
-    <script src="main.js"></script>
+  <div class="btn-group">
+    <button class="btn btn-secondary" onclick="reset()">초기화</button>
+    <button class="btn btn-primary" id="downloadBtn" disabled onclick="download()">
+      📥 PNG 다운로드 (512×512)
+    </button>
+  </div>
+</div>
+<script src="main.js"></script>
 </body>
 </html>
