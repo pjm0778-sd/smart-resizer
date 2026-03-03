@@ -129,7 +129,7 @@ function download() {
   const url = URL.createObjectURL(processedBlob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `monggeul_icon_${currentWidth}x${currentHeight}.png`;
+  a.download = `converted_image_${currentWidth}x${currentHeight}.png`;
   a.click();
   URL.revokeObjectURL(url);
 }
