@@ -3,18 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>무료 이미지 변환기</title>
+<title data-i18n="title">무료 이미지 변환기</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="lang-selector">
+  <button onclick="setLanguage('ko')" id="lang-ko" class="active">KR</button>
+  <span class="divider">|</span>
+  <button onclick="setLanguage('en')" id="lang-en">EN</button>
+</div>
+
 <div class="container">
-  <h1>🖼️ 무료 이미지 변환기</h1>
-  <p class="subtitle">이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다</p>
+  <h1 data-i18n="header">🖼️ 무료 이미지 변환기</h1>
+  <p class="subtitle" data-i18n="subtitle">이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다</p>
 
   <div class="spec-box">
-    <h3>📋 출력 설정</h3>
+    <h3 data-i18n="specTitle">📋 출력 설정</h3>
     <div class="size-options">
-      <div class="preset-label">빠른 선택</div>
+      <div class="preset-label" data-i18n="quickSelect">빠른 선택</div>
       <div class="presets">
         <button class="preset-btn active" onclick="setSize(512, this)">512×512</button>
         <button class="preset-btn" onclick="setSize(1024, this)">1024×1024</button>
@@ -24,23 +30,23 @@
         <button class="preset-btn" onclick="setSize(96, this)">96×96</button>
       </div>
       <div class="custom-size-row">
-        <span class="preset-label">직접 입력</span>
+        <span class="preset-label" data-i18n="customInput">직접 입력</span>
         <div class="custom-inputs">
-          <input type="number" id="customW" placeholder="가로" min="16" max="4096" oninput="onCustomInput()">
+          <input type="number" id="customW" placeholder="가로" data-i18n-placeholder="width" min="16" max="4096" oninput="onCustomInput()">
           <span class="x-label">×</span>
-          <input type="number" id="customH" placeholder="세로" min="16" max="4096" oninput="onCustomInput()">
+          <input type="number" id="customH" placeholder="세로" data-i18n-placeholder="height" min="16" max="4096" oninput="onCustomInput()">
           <span class="px-label">px</span>
-          <button class="apply-btn" id="applyBtn" onclick="applyCustomSize()" disabled>적용</button>
+          <button class="apply-btn" id="applyBtn" onclick="applyCustomSize()" disabled data-i18n="apply">적용</button>
         </div>
       </div>
-      <div class="current-size-info">현재 출력 크기: <strong id="currentSizeLabel">512 × 512 px</strong></div>
+      <div class="current-size-info"><span data-i18n="currentSize">현재 출력 크기</span>: <strong id="currentSizeLabel">512 × 512 px</strong></div>
     </div>
   </div>
 
   <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
     <div class="icon">🖼️</div>
-    <p>이미지를 여기에 드래그하거나 클릭하여 업로드</p>
-    <p style="font-size:12px; margin-top:4px;">PNG, JPEG, WEBP 지원</p>
+    <p data-i18n="dropText">이미지를 여기에 드래그하거나 클릭하여 업로드</p>
+    <p style="font-size:12px; margin-top:4px;" data-i18n="formats">PNG, JPEG, WEBP 지원</p>
   </div>
   <input type="file" id="fileInput" accept="image/*">
 
@@ -48,11 +54,11 @@
 
   <div class="preview-area" id="previewArea">
     <div class="preview-box">
-      <label>원본 이미지</label>
+      <label data-i18n="originalLabel">원본 이미지</label>
       <img id="originalPreview" style="max-height:200px;">
     </div>
     <div class="preview-box">
-      <label id="resultLabel">변환 결과 (512×512, 투명 배경)</label>
+      <label id="resultLabel" data-i18n="resultLabel">변환 결과 (512×512, 투명 배경)</label>
       <div class="checker">
         <canvas id="resultCanvas" width="200" height="200"></canvas>
       </div>
@@ -60,9 +66,9 @@
   </div>
 
   <div class="btn-group">
-    <button class="btn btn-secondary" onclick="reset()">초기화</button>
+    <button class="btn btn-secondary" onclick="reset()" data-i18n="reset">초기화</button>
     <button class="btn btn-primary" id="downloadBtn" disabled onclick="download()">
-      📥 PNG 다운로드 (512×512)
+      📥 <span data-i18n="downloadBtn">PNG 다운로드</span> (512×512)
     </button>
   </div>
 </div>

@@ -7,7 +7,39 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
 }
+
+/* Language Selector */
+.lang-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lang-selector button {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.lang-selector button.active {
+  color: #7c3aed;
+}
+.lang-selector .divider {
+  color: #eee;
+  font-size: 12px;
+}
+
 .container {
   background: white;
   border-radius: 20px;
