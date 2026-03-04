@@ -23,7 +23,10 @@ const translations = {
     reset: "초기화",
     downloadBtn: "PNG 다운로드",
     infoSuccess: (w, h, size, ok) => `✅ 변환 완료! 크기: ${w}×${h}px | 용량: ${size}MB | ${ok ? '✓ 1MB 이하' : '⚠ 1MB 초과'}`,
-    infoError: "이미지 파일만 지원합니다."
+    infoError: "이미지 파일만 지원합니다.",
+    privacyPolicy: "개인정보처리방침",
+    contact: "문의하기",
+    about: "사이트 소개"
   },
   en: {
     title: "Free Image Converter",
@@ -43,7 +46,10 @@ const translations = {
     reset: "Reset",
     downloadBtn: "Download PNG",
     infoSuccess: (w, h, size, ok) => `✅ Done! Size: ${w}×${h}px | Weight: ${size}MB | ${ok ? '✓ Under 1MB' : '⚠ Over 1MB'}`,
-    infoError: "Only image files are supported."
+    infoError: "Only image files are supported.",
+    privacyPolicy: "Privacy Policy",
+    contact: "Contact",
+    about: "About"
   }
 };
 
