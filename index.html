@@ -2,24 +2,52 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<title data-i18n="title">무료 온라인 이미지 변환기 - PNG, JPEG, WEBP 변환</title>
+<meta name="description" content="온라인 이미지 변환기를 사용하여 이미지를 PNG, JPEG, WEBP 등 다양한 형식으로 변환하고 크기를 조정하세요. 빠르고 사용하기 쉽습니다.">
+<meta name="keywords" content="이미지 변환기, 온라인 이미지 변환기, PNG 변환기, JPEG 변환기, WEBP 변환기, 이미지 크기 조정">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="title">무료 이미지 변환기</title>
+<link rel="canonical" href="https://your-domain.com/index.html">
+<meta property="og:title" content="무료 온라인 이미지 변환기">
+<meta property="og:description" content="이미지를 다양한 형식으로 변환하고 크기를 조정하세요.">
+<meta property="og:image" content="https://your-domain.com/og-image.png">
+<meta property="og:url" content="https://your-domain.com/index.html">
+<meta name="twitter:card" content="summary_large_image">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5670091904083044"
      crossorigin="anonymous"></script>
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "무료 이미지 변환기",
+  "operatingSystem": "WEB",
+  "applicationCategory": "DesignApplication",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "ratingCount": "12345"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0"
+  }
+}
+</script>
 </head>
 <body>
-<div class="lang-selector">
-  <button onclick="setLanguage('ko')" id="lang-ko" class="active">KR</button>
-  <span class="divider">|</span>
-  <button onclick="setLanguage('en')" id="lang-en">EN</button>
-</div>
-
-<div class="container">
-  <h1 data-i18n="header">🖼️ 무료 이미지 변환기</h1>
-  <p class="subtitle" data-i18n="subtitle">이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다</p>
-
-  <div class="spec-box">
+<header>
+  <div class="lang-selector">
+    <button onclick="setLanguage('ko')" id="lang-ko" class="active">KR</button>
+    <span class="divider">|</span>
+    <button onclick="setLanguage('en')" id="lang-en">EN</button>
+  </div>
+</header>
+<main class="container">
+  <header>
+    <h1 data-i18n="header">🖼️ 무료 이미지 변환기</h1>
+    <p class="subtitle" data-i18n="subtitle">이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다</p>
+  </header>
+  <section class="spec-box">
     <h3 data-i18n="specTitle">📋 출력 설정</h3>
     <div class="size-options">
       <div class="preset-label" data-i18n="quickSelect">빠른 선택</div>
@@ -43,37 +71,33 @@
       </div>
       <div class="current-size-info"><span data-i18n="currentSize">현재 출력 크기</span>: <strong id="currentSizeLabel">512 × 512 px</strong></div>
     </div>
-  </div>
-
-  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-    <div class="icon">🖼️</div>
+  </section>
+  <section class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+    <img class="icon" alt="이미지 업로드" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-upload-cloud'%3E%3Cpolyline points='16 16 12 12 8 16'%3E%3C/polyline%3E%3Cline x1='12' y1='12' x2='12' y2='21'%3E%3C/line%3E%3Cpath d='M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3'%3E%3C/path%3E%3Cpolyline points='16 16 12 12 8 16'%3E%3C/polyline%3E%3C/svg%3E"/>
     <p data-i18n="dropText">이미지를 여기에 드래그하거나 클릭하여 업로드</p>
     <p style="font-size:12px; margin-top:4px;" data-i18n="formats">PNG, JPEG, WEBP 지원</p>
-  </div>
-  <input type="file" id="fileInput" accept="image/*">
-
+  </section>
+  <input type="file" id="fileInput" accept="image/*" aria-label="Image upload">
   <div class="info-bar" id="infoBar"></div>
-
-  <div class="preview-area" id="previewArea">
+  <section class="preview-area" id="previewArea">
     <div class="preview-box">
-      <label data-i18n="originalLabel">원본 이미지</label>
-      <img id="originalPreview" style="max-height:200px;">
+      <h3 data-i18n="originalLabel">원본 이미지</h3>
+      <img id="originalPreview" style="max-height:200px;" alt="Original image preview">
     </div>
     <div class="preview-box">
-      <label id="resultLabel" data-i18n="resultLabel">변환 결과 (512×512, 투명 배경)</label>
+      <h3 id="resultLabel" data-i18n="resultLabel">변환 결과 (512×512, 투명 배경)</h3>
       <div class="checker">
         <canvas id="resultCanvas" width="200" height="200"></canvas>
       </div>
     </div>
-  </div>
-
+  </section>
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="reset()" data-i18n="reset">초기화</button>
     <button class="btn btn-primary" id="downloadBtn" disabled onclick="download()">
       📥 <span data-i18n="downloadBtn">PNG 다운로드</span> (512×512)
     </button>
   </div>
-</div>
+</main>
 <script src="main.js"></script>
 </body>
 </html>

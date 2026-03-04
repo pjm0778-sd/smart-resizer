@@ -6,7 +6,7 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 
 const translations = {
   ko: {
-    title: "무료 이미지 변환기",
+    title: "무료 온라인 이미지 변환기",
     header: "🖼️ 무료 이미지 변환기",
     subtitle: "이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다",
     specTitle: "📋 출력 설정",
