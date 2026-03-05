@@ -11,7 +11,7 @@
   gtag('config', 'G-EPY4W8WF1Y');
 </script>
   <meta charset="UTF-8">
-  <title>Smart Resizer - 서비스 소개 및 비전</title>
+  <title data-i18n="aboutTitle">Smart Resizer - 서비스 소개 및 비전</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -85,24 +85,27 @@
 <body>
   <header>
     <div class="lang-selector">
-      <a href="index.html" style="text-decoration:none; color:#7c3aed; font-weight:bold; font-size:14px;">← 홈으로</a>
+      <button onclick="setLanguage('ko')" id="lang-ko">KR</button>
+      <span class="divider">|</span>
+      <button onclick="setLanguage('en')" id="lang-en">EN</button>
+      <a href="index.html" style="text-decoration:none; color:#7c3aed; font-weight:bold; font-size:14px; margin-left:20px;" data-i18n="backHome">← 홈으로</a>
     </div>
   </header>
   
   <main class="container">
     <section class="about-hero">
-      <h1>Smart Resizer의 탄생</h1>
-      <p>단 한 장의 이미지가 완벽한 스토어 등록 정보가 되기까지</p>
+      <h1 data-i18n="aboutHeroTitle">Smart Resizer의 탄생</h1>
+      <p data-i18n="aboutHeroDesc">단 한 장의 이미지가 완벽한 스토어 등록 정보가 되기까지</p>
     </section>
 
     <section class="vision-section">
-      <h2>우리의 미션: "Simple but Powerful"</h2>
-      <p>
+      <h2 data-i18n="visionTitle">우리의 미션: "Simple but Powerful"</h2>
+      <p data-i18n="visionP1">
         구글 플레이스토어와 애플 앱스토어에 앱을 출시해 본 경험이 있는 개발자라면 누구나 공감할 것입니다. 
         512x512 아이콘, 1024x1024 스토어 그래픽, 그리고 수많은 기기 규격의 스크린샷들... 
         단순히 크기만 바꾸는 작업임에도 불구하고 유료 소프트웨어를 켜거나, 광고가 가득한 사이트에서 이미지를 업로드해야만 했습니다.
       </p>
-      <p style="margin-top:15px;">
+      <p style="margin-top:15px;" data-i18n="visionP2">
         <strong>Smart Resizer</strong>는 이러한 번거로움을 해결하기 위해 태어났습니다. 
         사용자가 오직 '제품의 본질'에만 집중할 수 있도록, 규격에 맞춘 이미지 변환은 저희가 가장 빠르고 안전하게 책임지겠습니다.
       </p>
@@ -110,61 +113,62 @@
 
     <div class="feature-list">
       <div class="feature-item">
-        <span class="tech-badge">Security First</span>
-        <h3>Zero-Server 아키텍처</h3>
-        <p>저희는 사용자의 데이터를 서버로 한 바이트도 전송하지 않습니다. 모든 프로세스는 여러분의 브라우저 내에서 <strong>Canvas API</strong>를 통해 로컬로 처리됩니다. 기업의 기밀 로고나 개인적인 사진도 안심하고 변환하세요. 이것이 저희가 정의하는 진정한 '개인정보 보호'입니다.</p>
+        <span class="tech-badge" data-i18n="badgeSecurity">Security First</span>
+        <h3 data-i18n="featSecTitle">Zero-Server 아키텍처</h3>
+        <p data-i18n="featSecDesc">저희는 사용자의 데이터를 서버로 한 바이트도 전송하지 않습니다. 모든 프로세스는 여러분의 브라우저 내에서 <strong>Canvas API</strong>를 통해 로컬로 처리됩니다. 기업의 기밀 로고나 개인적인 사진도 안심하고 변환하세요. 이것이 저희가 정의하는 진정한 '개인정보 보호'입니다.</p>
       </div>
       
       <div class="feature-item">
-        <span class="tech-badge">Efficiency</span>
-        <h3>스토어 전용 프리셋</h3>
-        <p>구글 플레이와 앱스토어의 최신 규격을 실시간으로 반영합니다. 1024px 고해상도 그래픽부터 180px iOS 아이콘까지, 클릭 한 번으로 전문가 수준의 결과물을 얻을 수 있습니다. 직접 수치를 입력할 필요조차 없는 완벽한 환경을 제공합니다.</p>
+        <span class="tech-badge" data-i18n="badgeEfficiency">Efficiency</span>
+        <h3 data-i18n="featEffTitle">스토어 전용 프리셋</h3>
+        <p data-i18n="featEffDesc">구글 플레이와 앱스토어의 최신 규격을 실시간으로 반영합니다. 1024px 고해상도 그래픽부터 180px iOS 아이콘까지, 클릭 한 번으로 전문가 수준의 결과물을 얻을 수 있습니다. 직접 수치를 입력할 필요조차 없는 완벽한 환경을 제공합니다.</p>
       </div>
 
       <div class="feature-item">
-        <span class="tech-badge">No Limits</span>
-        <h3>광고 없는 순수한 도구</h3>
-        <p>업무의 흐름을 방해하는 팝업 광고나 결제 유도가 전혀 없습니다. Smart Resizer는 커뮤니티의 성장을 위해 전면 무료로 운영되며, 사용자 경험을 해치지 않는 선에서 최소한의 운영 환경만을 유지합니다.</p>
+        <span class="tech-badge" data-i18n="badgeNoLimits">No Limits</span>
+        <h3 data-i18n="featNoLimitTitle">광고 없는 순수한 도구</h3>
+        <p data-i18n="featNoLimitDesc">업무의 흐름을 방해하는 팝업 광고나 결제 유도가 전혀 없습니다. Smart Resizer는 커뮤니티의 성장을 위해 전면 무료로 운영되며, 사용자 경험을 해치지 않는 선에서 최소한의 운영 환경만을 유지합니다.</p>
       </div>
     </div>
 
     <section class="roadmap">
-      <h2>🚀 향후 발전 계획 (Roadmap 2024-2025)</h2>
+      <h2 data-i18n="roadmapTitle">🚀 향후 발전 계획 (Roadmap 2024-2025)</h2>
       <div class="roadmap-item">
         <span class="status-done">✔</span>
         <div>
-          <strong>Phase 1: 핵심 엔진 구축 (Completed)</strong>
-          <p>초고속 캔버스 렌더링 엔진 및 기본 스토어 프리셋 구현 완료.</p>
+          <strong data-i18n="rm1Title">Phase 1: 핵심 엔진 구축 (Completed)</strong>
+          <p data-i18n="rm1Desc">초고속 캔버스 렌더링 엔진 및 기본 스토어 프리셋 구현 완료.</p>
         </div>
       </div>
       <div class="roadmap-item">
         <span class="status-doing">⏳</span>
         <div>
-          <strong>Phase 2: 일괄 변환 시스템 (In Progress)</strong>
-          <p>수십 장의 이미지를 한 번에 드래그하여 각기 다른 규격으로 자동 변환하는 기능을 개발 중입니다.</p>
+          <strong data-i18n="rm2Title">Phase 2: 일괄 변환 시스템 (In Progress)</strong>
+          <p data-i18n="rm2Desc">수십 장의 이미지를 한 번에 드래그하여 각기 다른 규격으로 자동 변환하는 기능을 개발 중입니다.</p>
         </div>
       </div>
       <div class="roadmap-item">
         <span class="status-todo">●</span>
         <div>
-          <strong>Phase 3: AI 스마트 업스케일링 (Coming Soon)</strong>
-          <p>저해상도 이미지를 고해상도로 변환할 때 화질 손실을 최소화하는 AI 필터 도입 예정.</p>
+          <strong data-i18n="rm3Title">Phase 3: AI 스마트 업스케일링 (Coming Soon)</strong>
+          <p data-i18n="rm3Desc">저해상도 이미지를 고해상도로 변환할 때 화질 손실을 최소화하는 AI 필터 도입 예정.</p>
         </div>
       </div>
     </section>
 
     <section style="margin-top:50px; text-align:center; color:#888;">
-      <p>Smart Resizer는 사용자의 피드백을 통해 성장합니다.</p>
+      <p data-i18n="contactInfo">Smart Resizer는 사용자의 피드백을 통해 성장합니다.</p>
       <p>개발자 연락처: pjm0778@gmail.com</p>
     </section>
   </main>
 
   <footer>
     <p>
-      <a href="index.html">홈으로</a> |
-      <a href="https://cooing-vacuum-46e.notion.site/3184e816cbe380c0a68adf9e49b65bcc" target="_blank">개인정보처리방침</a> |
-      <a href="contact.html">문의하기</a>
+      <a href="index.html" data-i18n="backHomeSimple">홈으로</a> |
+      <a href="https://cooing-vacuum-46e.notion.site/3184e816cbe380c0a68adf9e49b65bcc" target="_blank" data-i18n="privacyPolicy">개인정보처리방침</a> |
+      <a href="contact.html" data-i18n="contact">문의하기</a>
     </p>
   </footer>
+  <script src="main.js"></script>
 </body>
 </html>
