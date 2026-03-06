@@ -7,177 +7,177 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-EPY4W8WF1Y');
 </script>
 <meta charset="UTF-8">
 <title data-i18n="title">Smart Resizer - 무료 온라인 이미지 변환기 (PNG, JPEG, WEBP)</title>
 <meta name="description" content="설치 없이 브라우저에서 즉시 실행되는 무료 이미지 변환기. 구글 플레이스토어, 앱스토어 규격에 맞는 이미지 크기 조정 및 포맷 변환을 지원합니다.">
-<meta name="keywords" content="이미지 변환기, 온라인 이미지 변환기, PNG 변환기, JPEG 변환기, WEBP 변환기, 이미지 크기 조정, 스토어 등록 정보 최적화, 무료 도구">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://smart-resizer.pages.dev/">
-
+<link rel="stylesheet" href="style.css">
 <!-- Google AdSense Ownership Verification -->
 <meta name="google-adsense-account" content="ca-pub-5670091904083044">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5670091904083044"
-     crossorigin="anonymous"></script>
-
-<!-- Open Graph / Social Media -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Smart Resizer - 무료 온라인 이미지 변환기">
-<meta property="og:description" content="앱 스토어 등록을 위한 완벽한 이미지 변환 도구. 100% 안전한 클라이언트 사이드 처리.">
-<meta property="og:url" content="https://smart-resizer.pages.dev/">
-<meta property="og:site_name" content="Smart Resizer">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="stylesheet" href="style.css">
-
-<!-- Structured Data for Google Search -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Smart Resizer",
-  "operatingSystem": "Web",
-  "applicationCategory": "DesignApplication",
-  "description": "무료 온라인 이미지 변환 및 크기 조정 도구. PNG, JPEG, WEBP 포맷을 지원하며 모든 처리는 브라우저 내에서 안전하게 이루어집니다.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "featureList": [
-    "서버 전송 없는 안전한 로컬 처리",
-    "앱 스토어 전용 프리셋 제공",
-    "PNG, JPEG, WEBP 포맷 변환",
-    "광고 없는 깔끔한 UI"
-  ]
-}
-</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5670091904083044" crossorigin="anonymous"></script>
 </head>
-<body>
-<header>
-  <div class="lang-selector">
-    <button onclick="setLanguage('ko')" id="lang-ko" class="active">KR</button>
-    <span class="divider">|</span>
-    <button onclick="setLanguage('en')" id="lang-en">EN</button>
-  </div>
-</header>
-<main class="container">
-  <header>
-    <h1 data-i18n="header">🖼️ 무료 이미지 변환기</h1>
-    <p class="subtitle" data-i18n="subtitle">이미지를 다양한 스토어 규격에 맞게 무료로 변환합니다</p>
+<body class="dashboard-layout">
+  <header class="mobile-header">
+    <button id="menuToggle" class="menu-toggle">☰</button>
+    <div class="logo">🖼️ Smart Resizer</div>
   </header>
-  <section class="spec-box">
-    <h3 data-i18n="specTitle">📋 출력 설정</h3>
-    <div class="size-options">
-      <div class="preset-label" data-i18n="quickSelect">빠른 선택</div>
-      <div class="presets">
-        <button class="preset-btn active" onclick="setSize(512, this)">512×512</button>
-        <button class="preset-btn" onclick="setSize(1024, this)">1024×1024</button>
-        <button class="preset-btn" onclick="setSize(256, this)">256×256</button>
-        <button class="preset-btn" onclick="setSize(192, this)">192×192</button>
-        <button class="preset-btn" onclick="setSize(180, this)">180×180</button>
-        <button class="preset-btn" onclick="setSize(96, this)">96×96</button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"><div class="logo">🖼️ Smart Resizer</div></div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#" class="nav-item active" data-view="resizer" onclick="showView('resizer')">
+          <span class="nav-icon">📏</span> <span data-i18n="navResizer">이미지 리사이저</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="compress" onclick="showView('compress')">
+          <span class="nav-icon">📉</span> <span data-i18n="navCompress">이미지 압축</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="converter" onclick="showView('converter')">
+          <span class="nav-icon">🔄</span> <span data-i18n="navConverter">포맷 변환기</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="watermark" onclick="showView('watermark')">
+          <span class="nav-icon">💧</span> <span data-i18n="navWatermark">워터마크 삽입</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="bg-remover" onclick="showView('bg-remover')">
+          <span class="nav-icon">🧙‍♂️</span> <span data-i18n="navBgRemover">배경 제거 (AI)</span>
+        </a></li>
+        <li><a href="#" class="nav-item divider"></a></li>
+        <li><a href="about.html" class="nav-item"><span class="nav-icon">ℹ️</span> <span data-i18n="about">사이트 소개</span></a></li>
+        <li><a href="contact.html" class="nav-item"><span class="nav-icon">📧</span> <span data-i18n="contact">문의하기</span></a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-ad">
+      <ins class="adsbygoogle ad-slot-sidebar" style="display:block" data-ad-client="ca-pub-5670091904083044" data-ad-slot="sidebar_ad_unit" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div class="sidebar-footer">
+      <div class="lang-selector">
+        <button onclick="setLanguage('ko')" id="lang-ko" class="active">KR</button>
+        <span class="divider">|</span>
+        <button onclick="setLanguage('en')" id="lang-en">EN</button>
       </div>
-      <div class="custom-size-row">
-        <span class="preset-label" data-i18n="customInput">직접 입력</span>
-        <div class="custom-inputs">
-          <input type="number" id="customW" placeholder="가로" data-i18n-placeholder="width" min="16" max="4096" oninput="onCustomInput()">
-          <span class="x-label">×</span>
-          <input type="number" id="customH" placeholder="세로" data-i18n-placeholder="height" min="16" max="4096" oninput="onCustomInput()">
-          <span class="px-label">px</span>
-          <button class="apply-btn" id="applyBtn" onclick="applyCustomSize()" disabled data-i18n="apply">적용</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="ad-slot-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5670091904083044" data-ad-slot="top_ad_unit" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- 1. 리사이저 -->
+    <div id="view-resizer" class="tool-view active">
+      <header><h1 data-i18n="header">🖼️ 이미지 리사이저</h1><p class="subtitle" data-i18n="subtitle">이미지 크기를 즉시 조정합니다</p></header>
+      <div class="container">
+        <section class="spec-box">
+          <h3 data-i18n="specTitle">📋 출력 설정</h3>
+          <div class="presets">
+            <button class="preset-btn active" onclick="setSize(512, this)">512×512</button>
+            <button class="preset-btn" onclick="setSize(1024, this)">1024×1024</button>
+            <button class="preset-btn" onclick="setSize(256, this)">256×256</button>
+          </div>
+          <div class="custom-size-row">
+            <input type="number" id="customW" placeholder="가로" data-i18n-placeholder="width" oninput="onCustomInput()">
+            <span>×</span>
+            <input type="number" id="customH" placeholder="세로" data-i18n-placeholder="height" oninput="onCustomInput()">
+            <button class="apply-btn" id="applyBtn" onclick="applyCustomSize()" disabled data-i18n="apply">적용</button>
+          </div>
+        </section>
+        <section class="drop-zone" onclick="document.getElementById('fileInput').click()" id="dropZone">
+          <p data-i18n="dropText">이미지를 업로드하세요</p>
+        </section>
+        <input type="file" id="fileInput" accept="image/*" style="display:none">
+        <section class="preview-area" id="previewArea">
+          <div class="preview-box"><h3>Original</h3><img id="originalPreview"></div>
+          <div class="preview-box"><h3>Result</h3><div class="checker"><canvas id="resultCanvas"></canvas></div></div>
+        </section>
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="reset()">초기화</button>
+          <button class="btn btn-primary" id="downloadBtn" disabled onclick="download()">다운로드</button>
         </div>
       </div>
-      <div class="current-size-info"><span data-i18n="currentSize">현재 출력 크기</span>: <strong id="currentSizeLabel">512 × 512 px</strong></div>
-    </div>
-  </section>
-  <section class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-    <img class="icon" alt="이미지 업로드" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-upload-cloud'%3E%3Cpolyline points='16 16 12 12 8 16'%3E%3C/polyline%3E%3Cline x1='12' y1='12' x2='12' y2='21'%3E%3C/line%3E%3Cpath d='M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3'%3E%3C/path%3E%3Cpolyline points='16 16 12 12 8 16'%3E%3C/polyline%3E%3C/svg%3E"/>
-    <p data-i18n="dropText">이미지를 여기에 드래그하거나 클릭하여 업로드</p>
-    <p style="font-size:12px; margin-top:4px;" data-i18n="formats">PNG, JPEG, WEBP 지원</p>
-  </section>
-  <input type="file" id="fileInput" accept="image/*" aria-label="Image upload">
-  <div class="info-bar" id="infoBar"></div>
-  <section class="preview-area" id="previewArea">
-    <div class="preview-box">
-      <h3 data-i18n="originalLabel">원본 이미지</h3>
-      <img id="originalPreview" style="max-height:200px;" alt="Original image preview">
-    </div>
-    <div class="preview-box">
-      <h3 id="resultLabel" data-i18n="resultLabel">변환 결과 (512×512, 투명 배경)</h3>
-      <div class="checker">
-        <canvas id="resultCanvas" width="200" height="200"></canvas>
-      </div>
-    </div>
-  </section>
-  <div class="btn-group">
-    <button class="btn btn-secondary" onclick="reset()" data-i18n="reset">초기화</button>
-    <button class="btn btn-primary" id="downloadBtn" disabled onclick="download()">
-      📥 <span data-i18n="downloadBtn">PNG 다운로드</span> (512×512)
-    </button>
-  </div>
-
-  <section class="info-content">
-    <div class="info-section">
-      <h2 data-i18n="infoTitle1">무료 온라인 이미지 변환기: 빠르고 안전한 이미지 최적화</h2>
-      <p data-i18n="infoDesc1">
-        저희 <strong>Smart Resizer</strong>는 별도의 설치 없이 브라우저에서 즉시 사용할 수 있는 고성능 이미지 변환 도구입니다. 
-        단순히 크기를 조정하는 것을 넘어, 구글 플레이 스토어(Google Play Store), 애플 앱스토어(Apple App Store) 등 다양한 플랫폼의 규격에 맞는 
-        최적화된 이미지를 생성할 수 있도록 도와드립니다.
-      </p>
     </div>
 
-    <div class="info-grid">
-      <div class="info-card">
-        <h3 data-i18n="feat1Title">🔒 철저한 개인정보 보호</h3>
-        <p data-i18n="feat1Desc">업로드하신 모든 이미지는 서버로 전송되지 않습니다. 모든 변환 과정이 사용자의 웹 브라우저 내에서 직접 이루어지므로, 소중한 개인 데이터가 외부로 유출될 걱정이 전혀 없습니다.</p>
-      </div>
-      <div class="info-card">
-        <h3 data-i18n="feat2Title">⚡ 초고속 클라이언트 처리</h3>
-        <p data-i18n="feat2Desc">서버 대기 시간 없이 즉각적으로 결과를 확인할 수 있습니다. 대용량 이미지도 브라우저의 성능을 활용하여 빠르게 처리하며, 실시간 미리보기를 통해 변환 결과를 즉시 확인하세요.</p>
-      </div>
-      <div class="info-card">
-        <h3 data-i18n="feat3Title">🎯 다양한 프리셋 지원</h3>
-        <p data-i18n="feat3Desc">512px, 1024px 등 표준 규격부터 직접 입력 방식까지 지원하여 사용자가 원하는 정확한 크기로 이미지를 변환할 수 있습니다.</p>
+    <!-- 2. 압축기 -->
+    <div id="view-compress" class="tool-view">
+      <header><h1 data-i18n="navCompress">📉 이미지 압축</h1><p class="subtitle" data-i18n="compressSubtitle">용량을 획기적으로 줄입니다</p></header>
+      <div class="container">
+        <section class="spec-box">
+          <h3 data-i18n="compressQuality">품질</h3>: <strong id="qualityValueLabel">80%</strong>
+          <input type="range" id="compressQuality" min="5" max="100" value="80" oninput="updateQuality(this.value)">
+        </section>
+        <section class="drop-zone" onclick="document.getElementById('compressFileInput').click()" id="compressDropZone">
+          <p data-i18n="dropText">이미지를 업로드하세요</p>
+        </section>
+        <input type="file" id="compressFileInput" accept="image/*" style="display:none">
+        <section class="preview-area" id="compressPreviewArea">
+           <div class="preview-box"><div class="size-tag" id="origSizeLabel"></div><img id="compressOrigPreview"></div>
+           <div class="preview-box"><div class="size-tag primary" id="newSizeLabel"></div><div class="checker"><canvas id="compressCanvas"></canvas></div></div>
+        </section>
+        <div class="btn-group">
+          <button class="btn btn-primary" id="compressDownloadBtn" disabled onclick="downloadCompressed()">다운로드</button>
+        </div>
       </div>
     </div>
 
-    <div class="info-section">
-      <h2 data-i18n="guideTitle">이미지 포맷 선택 가이드: PNG, JPG, WEBP</h2>
-      <p data-i18n="guideDesc">이미지 변환 시 상황에 맞는 적절한 포맷을 선택하는 것이 중요합니다.</p>
-      <ul>
-        <li data-i18n="guideLi1"><strong>PNG (Portable Network Graphics):</strong> 손실 없는 압축을 제공하며 투명 배경(Alpha Channel)을 지원합니다. 로고, 아이콘, 텍스트가 포함된 이미지에 가장 적합합니다.</li>
-        <li data-i18n="guideLi2"><strong>JPEG (Joint Photographic Experts Group):</strong> 압축률이 높아 파일 용량을 획기적으로 줄일 수 있습니다. 사진이나 색상이 복잡한 배경 이미지에 추천합니다.</li>
-        <li data-i18n="guideLi3"><strong>WebP:</strong> 구글에서 개발한 차세대 포맷으로, JPEG보다 작은 용량으로 비슷한 품질을 유지하며 투명도까지 지원합니다. 최신 웹사이트 최적화의 핵심입니다.</li>
-      </ul>
+    <!-- 3. 포맷 변환기 -->
+    <div id="view-converter" class="tool-view">
+      <header><h1 data-i18n="navConverter">🔄 포맷 변환</h1></header>
+      <div class="container">
+        <section class="spec-box">
+          <div class="presets">
+            <button class="preset-btn active" onclick="setConvertFormat('png', this)">PNG</button>
+            <button class="preset-btn" onclick="setConvertFormat('jpeg', this)">JPG</button>
+            <button class="preset-btn" onclick="setConvertFormat('webp', this)">WebP</button>
+          </div>
+        </section>
+        <section class="drop-zone" onclick="document.getElementById('converterFileInput').click()" id="converterDropZone">
+          <p data-i18n="dropText">업로드</p>
+        </section>
+        <input type="file" id="converterFileInput" accept="image/*" style="display:none">
+        <div id="converterInfoBar" class="info-bar"></div>
+        <div class="btn-group"><button class="btn btn-primary" id="converterDownloadBtn" disabled onclick="downloadConverted()">다운로드</button></div>
+      </div>
     </div>
 
-    <div class="info-section faq">
-      <h2 data-i18n="faqTitle">자주 묻는 질문 (FAQ)</h2>
-      <div class="faq-item">
-        <h4 data-i18n="q1">Q: 서비스 이용 비용이 있나요?</h4>
-        <p data-i18n="a1">A: 아니요, Smart Resizer는 100% 무료이며 횟수 제한 없이 누구나 자유롭게 이용하실 수 있습니다.</p>
-      </div>
-      <div class="faq-item">
-        <h4 data-i18n="q2">Q: 스마트폰에서도 사용 가능한가요?</h4>
-        <p data-i18n="a2">A: 네, 반응형 웹 디자인을 적용하여 아이폰, 안드로이드 기기 등 모바일 브라우저에서도 PC와 동일한 기능을 편리하게 사용할 수 있습니다.</p>
-      </div>
-      <div class="faq-item">
-        <h4 data-i18n="q3">Q: 변환된 이미지의 화질 저하가 있나요?</h4>
-        <p data-i18n="a3">A: 고품질 캔버스 렌더링 기술을 사용하여 크기 조정 시 화질 손실을 최소화합니다. 특히 원본보다 작게 만드는 경우 매우 선명한 결과를 얻을 수 있습니다.</p>
+    <!-- 4. 워터마크 -->
+    <div id="view-watermark" class="tool-view">
+      <header><h1 data-i18n="navWatermark">💧 워터마크</h1></header>
+      <div class="container">
+        <section class="spec-box">
+          <input type="text" id="watermarkText" placeholder="텍스트 입력" style="width:100%; padding:10px; margin-bottom:10px;" oninput="runWatermark()">
+          <input type="range" id="watermarkOpacity" min="10" max="100" value="50" oninput="runWatermark()">
+        </section>
+        <section class="drop-zone" onclick="document.getElementById('watermarkFileInput').click()" id="watermarkDropZone"><p data-i18n="dropText">업로드</p></section>
+        <input type="file" id="watermarkFileInput" accept="image/*" style="display:none">
+        <canvas id="watermarkCanvas" style="max-width:100%; margin-top:20px;"></canvas>
+        <div class="btn-group"><button class="btn btn-primary" id="watermarkDownloadBtn" disabled onclick="downloadWatermark()">다운로드</button></div>
       </div>
     </div>
-  </section>
-</main>
-<footer>
-  <p>
-    <a href="https://cooing-vacuum-46e.notion.site/3184e816cbe380c0a68adf9e49b65bcc" target="_blank" data-i18n="privacyPolicy">개인정보처리방침</a> |
-    <a href="contact.html" data-i18n="contact">문의하기</a> |
-    <a href="about.html" data-i18n="about">사이트 소개</a>
-  </p>
-</footer>
-<script src="main.js"></script>
+
+    <!-- 5. 배경 제거 -->
+    <div id="view-bg-remover" class="tool-view">
+      <header><h1 data-i18n="navBgRemover">🧙‍♂️ 배경 제거</h1></header>
+      <div class="container">
+        <section class="drop-zone" onclick="document.getElementById('bgFileInput').click()" id="bgDropZone"><p data-i18n="dropText">업로드</p></section>
+        <input type="file" id="bgFileInput" accept="image/*" style="display:none">
+        <div id="bgLoading" class="placeholder-msg" style="display:none">🪄 AI가 작업 중...</div>
+        <div class="preview-area" id="bgPreviewArea"><div class="checker"><canvas id="bgResultCanvas"></canvas></div></div>
+        <div class="btn-group"><button class="btn btn-primary" id="bgDownloadBtn" disabled onclick="downloadBgRemoved()">다운로드</button></div>
+      </div>
+    </div>
+
+    <div class="ad-slot-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5670091904083044" data-ad-slot="bottom_ad_unit" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer>
+      <p><a href="#" data-i18n="privacyPolicy">개인정보처리방침</a> | <a href="contact.html" data-i18n="contact">문의하기</a></p>
+    </footer>
+  </main>
+  <script src="main.js"></script>
 </body>
 </html>
