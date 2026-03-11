@@ -23,6 +23,7 @@ const translations = {
   ko: {
     title: "Smart Resizer - 올인원 이미지 도구",
     header: "📏 이미지 리사이저",
+    subtitle: "이미지 크기를 즉시 조정합니다",
     navResizer: "이미지 리사이저",
     navCompress: "이미지 압축",
     navConverter: "포맷 변환기",
@@ -31,6 +32,9 @@ const translations = {
     dropText: "이미지를 드래그하거나 클릭하여 업로드",
     downloadBtn: "다운로드",
     apply: "적용",
+    specTitle: "📋 출력 설정",
+    compressQuality: "품질",
+    compressSubtitle: "용량을 획기적으로 줄입니다",
     // Converter
     converterSubtitle: "이미지 형식을 즉시 변환합니다 (PNG, JPG, WEBP)",
     // Watermark
@@ -45,6 +49,7 @@ const translations = {
   en: {
     title: "Smart Resizer - All-in-One Image Tools",
     header: "📏 Image Resizer",
+    subtitle: "Resize images instantly",
     navResizer: "Image Resizer",
     navCompress: "Image Compressor",
     navConverter: "Format Converter",
@@ -53,6 +58,9 @@ const translations = {
     dropText: "Drag & drop image here or click to upload",
     downloadBtn: "Download",
     apply: "Apply",
+    specTitle: "📋 Output Settings",
+    compressQuality: "Quality",
+    compressSubtitle: "Significantly reduce file size",
     // Converter
     converterSubtitle: "Convert image formats instantly (PNG, JPG, WEBP)",
     // Watermark
@@ -65,6 +73,37 @@ const translations = {
     privacyPolicy: "Privacy Policy"
   }
 };
+
+// --- Drag & Drop Setup ---
+function setupDragAndDrop(dropZoneId, fileInputId, processFn) {
+  const dropZone = document.getElementById(dropZoneId);
+  const fileInput = document.getElementById(fileInputId);
+
+  if (!dropZone || !fileInput) return;
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      processFn(file);
+    }
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) processFn(file);
+  });
+}
 
 // --- View Navigation ---
 function showView(viewId) {
@@ -95,21 +134,41 @@ function setLanguage(lang) {
 }
 
 // --- 1. Resizer Logic ---
-const fileInput = document.getElementById('fileInput');
-fileInput?.addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]); });
+function onCustomInput() {
+  const w = document.getElementById('customW').value;
+  const h = document.getElementById('customH').value;
+  document.getElementById('applyBtn').disabled = !(w > 0 && h > 0);
+}
+
+function applyCustomSize() {
+  const w = parseInt(document.getElementById('customW').value);
+  const h = parseInt(document.getElementById('customH').value);
+  if (w > 0 && h > 0) {
+    currentWidth = w; currentHeight = h;
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    if (originalImage) processImage(originalImage);
+  }
+}
 
 function setSize(size, btn) {
   currentWidth = size; currentHeight = size;
   document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+  document.getElementById('customW').value = '';
+  document.getElementById('customH').value = '';
+  document.getElementById('applyBtn').disabled = true;
   if (originalImage) processImage(originalImage);
 }
 
-function processFile(file) {
+function processResizerFile(file) {
   const reader = new FileReader();
   reader.onload = e => {
     const img = new Image();
-    img.onload = () => { originalImage = img; document.getElementById('originalPreview').src = e.target.result; processImage(img); };
+    img.onload = () => { 
+      originalImage = img; 
+      document.getElementById('originalPreview').src = e.target.result; 
+      processImage(img); 
+    };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
@@ -120,7 +179,22 @@ function processImage(img) {
   canvas.width = currentWidth; canvas.height = currentHeight;
   const ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0, currentWidth, currentHeight);
-  canvas.toBlob(blob => { processedBlob = blob; document.getElementById('downloadBtn').disabled = false; document.getElementById('previewArea').classList.add('show'); }, 'image/png');
+  canvas.toBlob(blob => { 
+    processedBlob = blob; 
+    document.getElementById('downloadBtn').disabled = false; 
+    document.getElementById('previewArea').classList.add('show'); 
+  }, 'image/png');
+}
+
+function reset() {
+  originalImage = null;
+  processedBlob = null;
+  document.getElementById('fileInput').value = '';
+  document.getElementById('originalPreview').src = '';
+  const canvas = document.getElementById('resultCanvas');
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('previewArea').classList.remove('show');
+  document.getElementById('downloadBtn').disabled = true;
 }
 
 function download() {
@@ -138,24 +212,26 @@ function updateQuality(val) {
   if (compressOriginalImage) runCompression();
 }
 
-const compressFileInput = document.getElementById('compressFileInput');
-compressFileInput?.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
+function processCompressFile(file) {
   document.getElementById('origSizeLabel').textContent = (file.size/1024).toFixed(1) + 'KB';
   const reader = new FileReader();
   reader.onload = e => {
     const img = new Image();
-    img.onload = () => { compressOriginalImage = img; document.getElementById('compressOrigPreview').src = e.target.result; runCompression(); };
+    img.onload = () => { 
+      compressOriginalImage = img; 
+      document.getElementById('compressOrigPreview').src = e.target.result; 
+      runCompression(); 
+    };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
-});
+}
 
 function runCompression() {
   const canvas = document.getElementById('compressCanvas');
   canvas.width = compressOriginalImage.width; canvas.height = compressOriginalImage.height;
-  canvas.getContext('2d').drawImage(compressOriginalImage, 0, 0);
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(compressOriginalImage, 0, 0);
   canvas.toBlob(blob => {
     compressedBlob = blob;
     document.getElementById('newSizeLabel').textContent = (blob.size/1024).toFixed(1) + 'KB';
@@ -165,7 +241,11 @@ function runCompression() {
 }
 
 function downloadCompressed() {
-  const a = document.createElement('a'); a.href = URL.createObjectURL(compressedBlob); a.download = 'compressed.jpg'; a.click();
+  if (!compressedBlob) return;
+  const a = document.createElement('a'); 
+  a.href = URL.createObjectURL(compressedBlob); 
+  a.download = 'compressed.jpg'; 
+  a.click();
 }
 
 // --- 3. Converter Logic ---
@@ -176,40 +256,54 @@ function setConvertFormat(fmt, btn) {
   if (converterOriginalImage) runConversion();
 }
 
-const converterFileInput = document.getElementById('converterFileInput');
-converterFileInput?.addEventListener('change', e => {
+function processConverterFile(file) {
   const reader = new FileReader();
   reader.onload = e => {
     const img = new Image();
-    img.onload = () => { converterOriginalImage = img; runConversion(); };
+    img.onload = () => { 
+      converterOriginalImage = img; 
+      runConversion(); 
+    };
     img.src = e.target.result;
   };
-  reader.readAsDataURL(e.target.files[0]);
-});
+  reader.readAsDataURL(file);
+}
 
 function runConversion() {
   const canvas = document.createElement('canvas');
   canvas.width = converterOriginalImage.width; canvas.height = converterOriginalImage.height;
-  canvas.getContext('2d').drawImage(converterOriginalImage, 0, 0);
-  canvas.toBlob(blob => { convertedBlob = blob; document.getElementById('converterDownloadBtn').disabled = false; }, targetFormat);
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(converterOriginalImage, 0, 0);
+  canvas.toBlob(blob => { 
+    convertedBlob = blob; 
+    document.getElementById('converterDownloadBtn').disabled = false; 
+    const ext = targetFormat.split('/')[1].replace('jpeg', 'jpg').toUpperCase();
+    document.getElementById('converterInfoBar').textContent = `준비됨: ${ext} 형식`;
+  }, targetFormat);
 }
 
 function downloadConverted() {
+  if (!convertedBlob) return;
   const ext = targetFormat.split('/')[1].replace('jpeg', 'jpg');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(convertedBlob); a.download = `converted.${ext}`; a.click();
+  const a = document.createElement('a'); 
+  a.href = URL.createObjectURL(convertedBlob); 
+  a.download = `converted.${ext}`; 
+  a.click();
 }
 
 // --- 4. Watermark Logic ---
-const watermarkFileInput = document.getElementById('watermarkFileInput');
-watermarkFileInput?.addEventListener('change', e => {
+function processWatermarkFile(file) {
   const reader = new FileReader();
   reader.onload = e => {
     const img = new Image();
-    img.onload = () => { watermarkOriginalImage = img; runWatermark(); };
+    img.onload = () => { 
+      watermarkOriginalImage = img; 
+      runWatermark(); 
+    };
     img.src = e.target.result;
   };
-  reader.readAsDataURL(e.target.files[0]);
-});
+  reader.readAsDataURL(file);
+}
 
 function runWatermark() {
   if (!watermarkOriginalImage) return;
@@ -224,62 +318,95 @@ function runWatermark() {
   
   ctx.globalAlpha = opacity;
   ctx.fillStyle = 'white';
-  ctx.font = `${canvas.width / 20}px Arial`;
+  ctx.font = `bold ${canvas.width / 15}px Arial`;
   ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+  // Add slight shadow for better visibility
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 10;
   ctx.fillText(text, canvas.width / 2, canvas.height / 2);
   
-  canvas.toBlob(blob => { watermarkBlob = blob; document.getElementById('watermarkDownloadBtn').disabled = false; }, 'image/png');
+  canvas.toBlob(blob => { 
+    watermarkBlob = blob; 
+    document.getElementById('watermarkDownloadBtn').disabled = false; 
+  }, 'image/png');
 }
 
 function downloadWatermark() {
-  const a = document.createElement('a'); a.href = URL.createObjectURL(watermarkBlob); a.download = 'watermarked.png'; a.click();
+  if (!watermarkBlob) return;
+  const a = document.createElement('a'); 
+  a.href = URL.createObjectURL(watermarkBlob); 
+  a.download = 'watermarked.png'; 
+  a.click();
 }
 
 // --- 5. Background Remover (AI) ---
-// Note: Pure client-side AI removal often requires a heavy library.
-// We will use a script tag to load @imgly/background-removal if needed, 
-// but for this example, we'll implement a high-quality placeholder or a simple color-keying approach.
-// For a real production app, you would include: <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@latest/dist/bundle.js"></script>
-
-const bgFileInput = document.getElementById('bgFileInput');
-bgFileInput?.addEventListener('change', async e => {
-  const file = e.target.files[0];
+async function processBgFile(file) {
   if (!file) return;
   
-  document.getElementById('bgLoading').style.display = 'block';
-  document.getElementById('bgPreviewArea').style.display = 'none';
+  const loadingEl = document.getElementById('bgLoading');
+  const previewArea = document.getElementById('bgPreviewArea');
+  const downloadBtn = document.getElementById('bgDownloadBtn');
+  
+  loadingEl.style.display = 'block';
+  previewArea.classList.remove('show');
+  downloadBtn.disabled = true;
 
-  // 실제 구현을 위해서는 라이브러리 로드가 필요합니다. 
-  // 여기서는 로직 구조만 잡고, 실제 AI 처리는 라이브러리 연결을 권장합니다.
-  setTimeout(() => {
-    // 임시: 배경을 지우는 흉내 (실제로는 imgly 등 라이브러리 호출)
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.getElementById('bgResultCanvas');
-        canvas.width = img.width; canvas.height = img.height;
-        canvas.getContext('2d').drawImage(img, 0, 0);
-        document.getElementById('bgLoading').style.display = 'none';
-        document.getElementById('bgPreviewArea').style.display = 'block';
-        document.getElementById('bgDownloadBtn').disabled = false;
-        canvas.toBlob(b => bgRemovedBlob = b);
-      };
-      img.src = ev.target.result;
+  try {
+    // imgly background removal
+    const blob = await imglyRemoveBackground(file);
+    bgRemovedBlob = blob;
+    
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.getElementById('bgResultCanvas');
+      canvas.width = img.width; 
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      
+      loadingEl.style.display = 'none';
+      previewArea.classList.add('show');
+      downloadBtn.disabled = false;
     };
-    reader.readAsDataURL(file);
-  }, 2000);
-});
-
-function downloadBgRemoved() {
-  const a = document.createElement('a'); a.href = URL.createObjectURL(bgRemovedBlob); a.download = 'no_bg.png'; a.click();
+    img.src = url;
+  } catch (error) {
+    console.error("Background removal failed:", error);
+    alert("배경 제거에 실패했습니다. 다른 이미지를 시도해보세요.");
+    loadingEl.style.display = 'none';
+  }
 }
 
-// Init
-setLanguage(currentLang);
+function downloadBgRemoved() {
+  if (!bgRemovedBlob) return;
+  const a = document.createElement('a'); 
+  a.href = URL.createObjectURL(bgRemovedBlob); 
+  a.download = 'no_bg.png'; 
+  a.click();
+}
+
+// --- Initialization ---
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+  
+  // Setup Drag & Drop for all zones
+  setupDragAndDrop('dropZone', 'fileInput', processResizerFile);
+  setupDragAndDrop('compressDropZone', 'compressFileInput', processCompressFile);
+  setupDragAndDrop('converterDropZone', 'converterFileInput', processConverterFile);
+  setupDragAndDrop('watermarkDropZone', 'watermarkFileInput', processWatermarkFile);
+  setupDragAndDrop('bgDropZone', 'bgFileInput', processBgFile);
+});
+
+// Export functions to window
 window.showView = showView;
 window.setLanguage = setLanguage;
 window.setSize = setSize;
+window.onCustomInput = onCustomInput;
+window.applyCustomSize = applyCustomSize;
+window.reset = reset;
 window.updateQuality = updateQuality;
 window.setConvertFormat = setConvertFormat;
 window.runWatermark = runWatermark;
